@@ -20,11 +20,22 @@ export function run(): Promise<void> {
                 return e(err);
             }
 
+            // Workaround: Add languageServer tests first.
+            files.forEach(f => {
+              const filePath = path.resolve(testsRoot, f);
+              if (filePath.includes('languageServer.test')) {
+                console.log("  Adding test file: ", filePath);
+                mocha.addFile(filePath);
+              }
+            });
+
             // Add files to the test suite
             files.forEach(f => {
                 const filePath = path.resolve(testsRoot, f);
-                console.log("  Adding test file: ", filePath);
-                mocha.addFile(filePath);
+                if (!filePath.includes('languageServer.test.ts')) {
+                  console.log("  Adding test file: ", filePath);
+                  mocha.addFile(filePath);
+                }
             });
 
             try {

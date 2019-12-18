@@ -257,7 +257,7 @@ gulp.task(
     gulp.series(
         skipHclHilJs ? [] : ['generate-hcl-hil.js'], 'copy-autocompletion-data',
         'copy-html-templates',
-        // 'generate-constants-keyfile',
+        'generate-constants-keyfile',
         'generate-release-notes', 'compile'));
 
 // watch
